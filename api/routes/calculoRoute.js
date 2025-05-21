@@ -34,7 +34,6 @@ function calcularAposentadoria(idade, contribuicao, sexo) {
 router.post('/calculo', (req, res) => {
   const { idade, contribuicao, sexo } = req.body;
 
-  // Validação dos dados
   if (
     typeof idade !== 'number' ||
     typeof contribuicao !== 'number' ||
@@ -53,4 +52,4 @@ router.post('/calculo', (req, res) => {
   return res.status(200).json(resultado);
 });
 
-module.exports = router;
+module.exports = { router, calcularAposentadoria };
