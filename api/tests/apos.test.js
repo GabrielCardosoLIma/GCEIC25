@@ -1,4 +1,4 @@
-const { calcularAposentadoria } = require('../routes/calculoRoute');
+const { calcularAposentadoria } = require('../controllers/aposController');
 
 describe('Função calcularAposentadoria', () => {
   test('Mulher que já pode se aposentar', () => {
