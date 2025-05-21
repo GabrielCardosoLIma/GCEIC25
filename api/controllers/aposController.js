@@ -1,5 +1,3 @@
-// controllers/aposController.js
-
 function calcularAposentadoria(idade, contribuicao, sexo) {
   const idadeMinima = sexo === 'F' ? 62 : 65;
   const contribuicaoMinima = 15;
