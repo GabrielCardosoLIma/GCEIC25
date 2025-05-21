@@ -10,7 +10,7 @@ const port = 3000;
 // importa as rotas
 const userRoutes = require('./routes/userRoutes')
 const baseRoutes = require('./routes/baseRoutes')
-const apos = require('./routes/apos')
+const apos = require('./routes/aposRoutes')
 
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
@@ -25,3 +25,4 @@ app.listen(port, () => {
   console.log(`Swagger em http://localhost:${port}/api-docs`);
 });
 
+module.exports = app;

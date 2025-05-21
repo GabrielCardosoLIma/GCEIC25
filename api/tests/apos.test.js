@@ -1,4 +1,8 @@
 const { calcularAposentadoria } = require('../controllers/aposController');
+const request = require('supertest');
+const app = require('../server');
+
+// ----------------- TESTES UNITÁRIOS -----------------
 
 describe('Função calcularAposentadoria', () => {
   test('Mulher que já pode se aposentar', () => {
@@ -46,4 +50,47 @@ describe('Função calcularAposentadoria', () => {
     const resultado = calcularAposentadoria(65, 15, 'X');
     expect(resultado.podeAposentar).toBe(true);
   });
+});
+
+
+// ----------------- TESTES FUNCIONAIS -----------------
+describe('Testes Funcionais - Endpoint /apos/calculo', () => {
+  test('Deve calcular aposentadoria corretamente para mulher', async () => {
+    const res = await request(app)
+      .post('/api/calculo')
+      .send({ idade: 62, contribuicao: 15, sexo: 'F' });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.podeAposentar).toBe(true);
+    expect(res.body.mensagem).toBe('Você já pode se aposentar.');
+  });
+
+  test('Deve calcular aposentadoria corretamente para homem', async () => {
+    const res = await request(app)
+      .post('/api/calculo')
+      .send({ idade: 65, contribuicao: 15, sexo: 'M' });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.podeAposentar).toBe(true);
+  });
+
+  test('Deve retornar mensagem de não apto quando falta idade', async () => {
+    const res = await request(app)
+      .post('/api/calculo')
+      .send({ idade: 60, contribuicao: 15, sexo: 'F' });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.podeAposentar).toBe(false);
+    expect(res.body.mensagem).toContain('2 ano(s) de idade');
+  });
+
+  test('Deve retornar erro quando dados inválidos são enviados', async () => {
+    const res = await request(app)
+      .post('/api/calculo')
+      .send({ idade: 'abc', contribuicao: -5, sexo: 'X' });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.erro).toBe(true);
+    expect(res.body.mensagem).toBe('Por favor, envie idade, contribuição válidos e sexo ("M" ou "F").');
+ });
 });
