@@ -53,5 +53,3 @@ router.post('/calculo', (req, res) => {
 });
 
 module.exports = { router, calcularAposentadoria };
-
-// sdsd
