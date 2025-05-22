@@ -1,0 +1,11 @@
+{
+  "name": "gceic25",
+  "version": "1.0.0",
+  "description": "Repositorio para aula de GCEIC 2025 github actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -25,3 +25,8 @@ router.post('/calculo', (req, res) => {
 });
 
 module.exports = router;
+
+const { calcularRegra } = require('../controllers/aposController');
+router.post('/regras', calcularRegra);
+
+module.exports = router;
